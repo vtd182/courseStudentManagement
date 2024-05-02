@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <title>Student Information</title>
+    <!-- Add Bootstrap CSS here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<div th:fragment="content">
+    <h1>Student Information</h1>
+    <div th:if="${success}" class="alert alert-success" role="alert">
+        <p th:text="${success}"></p>
+    </div>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form th:action="@{/students/{id}(id=${student.id})}" th:object="${student}" method="post">
+        <div class="form-group">
+            <label for="student-id"><strong>ID:</strong></label>
+            <input type="text" class="form-control" id="student-id" th:field="*{id}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="student-name"><strong>Name:</strong></label>
+            <input type="text" class="form-control" id="student-name" th:field="*{name}">
+        </div>
+        <div class="form-group">
+            <label for="student-birthdate"><strong>Birth Date:</strong></label>
+            <input type="date" class="form-control" id="student-birthdate" th:field="*{birthDate}">
+        </div>
+        <div class="form-group">
+            <label for="student-address"><strong>Address:</strong></label>
+            <input type="text" class="form-control" id="student-address" th:field="*{address}">
+        <!-- Add more fields as necessary -->
+        </div>
+        <div class="form-group">
+            <label for="student-notes"><strong>Notes:</strong></label>
+            <textarea class="form-control" id="student-notes" th:field="*{notes}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary mb-4">Save</button>
+        <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger mb-4" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
+    </form>
+
+
+
+    <h2>Classes</h2>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Class Name</th>
+            <th scope="col">Grade</th>
+            <!-- Add more headers as necessary -->
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="courseStudent : ${courseStudents}">
+            <th scope="row" th:text="${courseStudent.id}"></th>
+            <td th:text="${courseStudent.course.name}"></td>
+            <td th:text="${courseStudent.grade}"></td>
+            <!-- Add more fields as necessary -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

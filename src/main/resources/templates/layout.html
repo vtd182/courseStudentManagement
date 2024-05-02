@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student management</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        #sidebar {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+            background: #f8f9fa;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3" id="sidebar">
+            <ul class="list-group">
+                <li class="list-group-item"><a th:href="@{/dashboard}">Dashboard</a></li>
+                <li class="list-group-item"><a th:href="@{/students}">Students</a></li>
+                <li class="list-group-item"><a th:href="@{/courses}">Courses</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9" id="content">
+            <div th:insert="~{${page} :: content}"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

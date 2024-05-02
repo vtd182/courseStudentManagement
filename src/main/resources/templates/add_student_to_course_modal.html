@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!-- Add Student Modal -->
+<div class="modal fade" id="addStudentToCourseModal" tabindex="-1" role="dialog" aria-labelledby="addStudentToCourseModal" aria-hidden="true" th:fragment="modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addStudentToCourseModalLabel">Add Student to course</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addStudentToCourseForm" action="#" th:action="@{/students/}" th:object="${student}" method="get">
+                    <div th:if="${student != null}">
+                        <div class="form-group">
+                            <label for="student-id" class="col-form-label">ID:</label>
+                            <input type="text" class="form-control" id="student-id" name="id" th:value="${student.id}" required>
+                            <button type="submit" class="btn btn-primary" id="checkStudent">Check</button>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="student-name" name="name" th:value="${student.name}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-birthdate" class="col-form-label">Birth Date:</label>
+                            <input type="date" class="form-control" id="student-birthdate" name="birthDate" th:value="${student.birthDate}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-address" class="col-form-label">Address:</label>
+                            <input type="text" class="form-control" id="student-address" name="address" th:value="${student.address}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="student-notes" class="col-form-label">Notes:</label>
+                            <textarea class="form-control" id="student-notes" name="notes" th:text="${student.notes}"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery and Bootstrap Bundle (includes Popper) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

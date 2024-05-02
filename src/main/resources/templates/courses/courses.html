@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+    <title>Courses</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="content">
+    <!-- Content -->
+    <div class="container">
+        <h1>Course</h1>
+        <!-- Search form -->
+        <form th:action="@{/courses/search}" method="get" class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search by name" aria-label="Search"
+                   name="name">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+        <br>
+        <!-- Filter form -->
+        <form th:action="@{/courses/filter}" method="get" class="form-inline my-2 my-lg-0">
+            <select class="form-control mr-sm-2" name="year">
+                <option value="all" th:selected="${year == 'all'}">All</option>
+                <option th:each="yearOption : ${years}" th:value="${yearOption}" th:text="${yearOption}" th:selected="${yearOption == year}"></option>
+            </select>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filter</button>
+        </form>
+        <br>
+
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCourseModal">
+            Add Course
+        </button>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Lecture</th>
+                <th scope="col">Year</th>
+                <th scope="col">Note</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Use Thymeleaf to iterate over the students -->
+            <tr th:each="course : ${courses}">
+                <th scope="row" th:text="${course.id}">1</th>
+                <td th:text="${course.name}">course 1</td>
+                <td th:text="${course.lecture}">01/01/2000</td>
+                <td th:text="${course.year}">Address 1</td>
+                <td th:text="${course.notes}">Notes 1</td>
+                <td>
+                    <a th:href="@{/courses/{id}(id=${course.id})}" class="btn btn-info">
+                        <i class="bi bi-eye">view</i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:insert="~{add_course_modal :: modal}"></div>
+</div>
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
