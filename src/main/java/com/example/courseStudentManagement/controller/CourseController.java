@@ -5,10 +5,7 @@ import com.example.courseStudentManagement.model.Course;
 import com.example.courseStudentManagement.model.Student;
 import com.example.courseStudentManagement.service.CourseService;
 import com.example.courseStudentManagement.service.StudentService;
-import com.example.courseStudentManagement.model.CourseStudentDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -126,6 +123,7 @@ public class CourseController {
     @PostMapping("courses/{id}/add-student")
     public String addStudentToCourse(@PathVariable("id") int courseId,
                                      @RequestParam("studentId") int studentId,
+                                     @RequestParam("studentGrade") float studentGrade,
                                      RedirectAttributes redirectAttributes) {
         Course course = courseService.getCourseById(courseId);
         Student student = studentService.getStudentById(studentId);
@@ -142,7 +140,7 @@ public class CourseController {
             return "redirect:/courses/" + courseId;
         }
 
-        courseService.insertStudentToCourse(student, course);
+        courseService.insertStudentToCourse(student, course, studentGrade);
         redirectAttributes.addFlashAttribute("message", "Student added to course successfully.");
         redirectAttributes.addFlashAttribute("messageType", "success");
         return "redirect:/courses/" + courseId;

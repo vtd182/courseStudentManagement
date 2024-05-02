@@ -58,11 +58,12 @@ public class CourseServiceImp implements CourseService{
 
     @Override
     @Transactional
-    public Course insertStudentToCourse(Student student, Course course) {
+    public Course insertStudentToCourse(Student student, Course course, float grade) {
         CourseStudent courseStudent;
         courseStudent = new CourseStudent();
         courseStudent.setCourse(course);
         courseStudent.setStudent(student);
+        courseStudent.setGrade(grade);
         courseStudentDAO.insertCourseStudent(courseStudent);
         return course;
     }
