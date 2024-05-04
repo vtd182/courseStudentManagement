@@ -30,7 +30,8 @@
             <select class="form-control mr-sm-2" name="year">
                 <option value="all" th:selected="${year == 'all'}">All</option>
                 <!-- Replace 'yearOption' with your actual years -->
-                <option th:each="yearOption : ${years}" th:value="${yearOption}" th:text="${yearOption}" th:selected="${yearOption == year}"></option>
+                <option th:each="yearOption : ${years}" th:value="${yearOption}" th:text="${yearOption}"
+                        th:selected="${#strings.toString(yearOption) == year}"></option>
             </select>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filter</button>
         </form>

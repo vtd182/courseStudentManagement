@@ -20,18 +20,22 @@
                    name="name">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-
         <br>
         <!-- Filter form -->
         <form th:action="@{/courses/filter}" method="get" class="form-inline my-2 my-lg-0">
-            <select class="form-control mr-sm-2" name="year">
+            <select class="form-control mr-sm-2" name="sortType">
+                <option value="ASC" th:selected="${sortType == 'ASC'}">Ascending</option>
+                <option value="DESC" th:selected="${sortType == 'DESC'}">Descending</option>
+            </select>
+            <select class="form-control mr-sm-2" name="yearSelected">
+                <!-- Replace 'yearOption' with your actual years -->
                 <option value="all" th:selected="${year == 'all'}">All</option>
-                <option th:each="yearOption : ${years}" th:value="${yearOption}" th:text="${yearOption}" th:selected="${yearOption == year}"></option>
+                <option th:each="yearOption : ${years}" th:value="${yearOption}" th:text="${yearOption}"
+                        th:selected="${#strings.toString(yearOption) == year}"></option>
             </select>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filter</button>
         </form>
         <br>
-
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addCourseModal">
             Add Course

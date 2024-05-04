@@ -64,4 +64,17 @@ public class CourseDAOImp implements CourseDAO {
         return query.getResultList();
     }
 
+    @Override
+    public List<Course> getAllCoursesSortByName(String sortType) {
+        if (sortType.equals("ASC")) {
+            String jpql = "SELECT c FROM Course c ORDER BY c.name ASC";
+            Query query = entityManager.createQuery(jpql, Course.class);
+            return query.getResultList();
+        } else {
+            String jpql = "SELECT c FROM Course c ORDER BY c.name DESC";
+            Query query = entityManager.createQuery(jpql, Course.class);
+            return query.getResultList();
+        }
+    }
+
 }

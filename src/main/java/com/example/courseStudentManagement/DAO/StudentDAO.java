@@ -11,6 +11,5 @@ public interface StudentDAO {
     public Student getStudent(int id);
     public List<Student> getAllStudents();
     public List<Student> getStudentsByName(String name);
-    public int updateAllNameStudents(String name);
     public List<Student> getAllStudentsSortByName(String sortType);
 }

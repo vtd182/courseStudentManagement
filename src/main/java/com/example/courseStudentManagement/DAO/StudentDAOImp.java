@@ -57,13 +57,6 @@ public class StudentDAOImp implements StudentDAO {
     }
 
     @Override
-    public int updateAllNameStudents(String name) {
-        String jpql = "UPDATE Student s SET s.name =:name";
-        Query query = entityManager.createQuery(jpql).setParameter("name", name);
-        return query.executeUpdate();
-    }
-
-    @Override
     public List<Student> getAllStudentsSortByName(String sortType) {
         String jpql;
         if (sortType.equals("ASC")) {

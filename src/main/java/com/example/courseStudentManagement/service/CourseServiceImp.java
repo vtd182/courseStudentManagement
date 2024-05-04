@@ -109,4 +109,21 @@ public class CourseServiceImp implements CourseService{
     public List<Course> getCoursesByName(String name) {
         return courseDAO.getCoursesByName(name);
     }
+
+    @Override
+    public List<Course> findAllSortByNameAndYear(String sortType, String year) {
+        if (year.equals("all")) {
+            return courseDAO.getAllCoursesSortByName(sortType);
+        } else {
+            List<Course> courses = courseDAO.getCoursesByYear(Integer.parseInt(year));
+            courses.sort((c1, c2) -> {
+                if (sortType.equals("ASC")) {
+                    return c1.getName().compareTo(c2.getName());
+                } else {
+                    return c2.getName().compareTo(c1.getName());
+                }
+            });
+            return courses;
+        }
+    }
 }

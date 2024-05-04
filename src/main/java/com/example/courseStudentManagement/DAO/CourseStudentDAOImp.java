@@ -74,7 +74,7 @@ public class CourseStudentDAOImp implements CourseStudentDAO{
 
     @Override
     public List<String> getYears() {
-        String jpql = "SELECT DISTINCT cs.course.year FROM CourseStudent cs";
+        String jpql = "SELECT DISTINCT cs.course.year FROM CourseStudent cs order by cs.course.year asc";
         Query query = entityManager.createQuery(jpql);
         return query.getResultList();
     }

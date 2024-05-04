@@ -40,8 +40,10 @@
         <button type="submit" class="btn btn-primary mb-4">Save</button>
         <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-danger mb-4" onclick="return confirm('Are you sure you want to delete this student?')">Delete</a>
     </form>
-
-
+    <!-- Alert message -->
+    <div th:if="${message}" th:classappend="'alert alert-' + ${messageType}" role="alert">
+        <p th:text="${message}"></p>
+    </div>
 
     <h2>Classes</h2>
     <table class="table table-striped table-hover">

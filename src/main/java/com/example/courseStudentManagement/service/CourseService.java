@@ -17,4 +17,5 @@ public interface CourseService {
     boolean isStudentInCourse(Student student, Course course);
     public List<Course> getCoursesByYear(int year);
     public List<Course> getCoursesByName(String name);
+    public List<Course> findAllSortByNameAndYear(String sortType, String year);
 }

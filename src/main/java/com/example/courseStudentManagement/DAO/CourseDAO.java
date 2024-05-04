@@ -10,7 +10,7 @@ public interface CourseDAO {
     public Course insertCourse(Course course);
     public Course updateCourse(Course course);
     public void deleteCourse(Course course);
-
     public List<Course> getCoursesByYear(int year);
     public List<Course> getCoursesByName(String name);
+    public List<Course> getAllCoursesSortByName(String sortType);
 }

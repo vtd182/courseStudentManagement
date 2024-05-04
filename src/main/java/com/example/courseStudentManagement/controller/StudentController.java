@@ -91,7 +91,10 @@ public class StudentController {
     }
 
     @PostMapping("/students/{id}")
-    public String updateStudent(@PathVariable("id") int id, @Valid Student student, BindingResult result, Model model) {
+    public String updateStudent(@PathVariable("id") int id, @Valid Student student,
+                                BindingResult result,
+                                Model model,
+                                RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             for (ObjectError error : result.getAllErrors()) {
                 System.out.println(error.getDefaultMessage());
@@ -106,6 +109,9 @@ public class StudentController {
         existingStudent.setBirthDate(student.getBirthDate());
         existingStudent.setAddress(student.getAddress());
         existingStudent.setNotes(student.getNotes());
+
+        redirectAttributes.addFlashAttribute("message", "Student update successfully.");
+        redirectAttributes.addFlashAttribute("messageType", "success");
 
         studentService.updateStudent(existingStudent);
         return "redirect:/students/" + id;

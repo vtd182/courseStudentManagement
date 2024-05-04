@@ -25,6 +25,9 @@ public class LayoutController {
     public String home(Model model) {
         model.addAttribute("totalStudents", studentService.getAllStudents().stream().count());
         model.addAttribute("totalCourses", courseService.getAllCourses().stream().count());
+        List<Course> courses = courseService.getAllCourses();
+        courses.sort((c1, c2) -> c2.getYear() - c1.getYear());
+        model.addAttribute("courses", courses.subList(0, Math.min(5, courses.size())));
         model.addAttribute("page", "dashboard");
         return "layout";
     }

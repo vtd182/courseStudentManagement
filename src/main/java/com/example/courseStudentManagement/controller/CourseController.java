@@ -71,7 +71,11 @@ public class CourseController {
     }
 
     @PostMapping("/courses/{id}")
-    public String updateCourse(@PathVariable("id") int id, @Valid Course course, BindingResult result, Model model) {
+    public String updateCourse(@PathVariable("id") int id,
+                               @Valid Course course,
+                               BindingResult result,
+                               Model model,
+                               RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             for (ObjectError error : result.getAllErrors()) {
                 System.out.println(error.getDefaultMessage());
@@ -88,6 +92,8 @@ public class CourseController {
         existingCourse.setNotes(course.getNotes());
 
         courseService.updateCourse(existingCourse);
+        redirectAttributes.addFlashAttribute("message_course", "Course updated successfully.");
+        redirectAttributes.addFlashAttribute("messageType_course", "success");
         return "redirect:/courses/" + id;
     }
 
@@ -155,23 +161,21 @@ public class CourseController {
     }
 
     @GetMapping("/courses/filter")
-    public String filterCourses(@RequestParam String year, Model model, RedirectAttributes redirectAttributes) {
+    public String filterCourses(@RequestParam String sortType,
+                                @RequestParam String yearSelected,
+                                Model model) {
         List<String> years = studentService.getYears(); // get years from database
         model.addAttribute("years", years);
-
-        if (year.equals("all")) {
-            List<Course> courses = courseService.getAllCourses();
-            model.addAttribute("courses", courses);
-            model.addAttribute("page", "courses/courses");
-            redirectAttributes.addFlashAttribute("year", year);
-            return "layout"; // return view name
-        }
-
-        List<Course> courses = courseService.getCoursesByYear(Integer.parseInt(year));
+        List<Course> courses = courseService.findAllSortByNameAndYear(sortType, yearSelected);
         model.addAttribute("courses", courses);
         model.addAttribute("page", "courses/courses");
-        redirectAttributes.addFlashAttribute("year", year);
+        model.addAttribute("sortType", sortType);
+        model.addAttribute("year", yearSelected);
+        System.out.println("sortType: " + sortType);
+        System.out.println("year: " + yearSelected);
         return "layout"; // return view name
     }
+
+
 
 }
